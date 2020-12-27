@@ -1,6 +1,0 @@
-I"�<h2 id="阿里云和docker搭建主从服务器">阿里云和Docker搭建主从服务器</h2>
-<p>阿里云环境为centos，首先安装docker</p>
-<blockquote>
-  <p>yum install docker-ce-3:19.03.13-3.el8 -y</p>
-</blockquote>
-:ET
