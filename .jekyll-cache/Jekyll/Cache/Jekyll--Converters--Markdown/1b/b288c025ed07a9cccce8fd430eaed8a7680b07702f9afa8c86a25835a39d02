@@ -1,0 +1,30 @@
+I"�<h2 id="阿里云和docker搭建主从服务器">阿里云和Docker搭建主从服务器</h2>
+<p>1、阿里云环境为centos，首先安装docker</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# yum install docker-ce-3:19.03.13-3.el8 -y
+</code></pre></div></div>
+
+<p>2、然后拉取docker镜像，这里使用5.7版本的mysql：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker pull mysql:5.7
+</code></pre></div></div>
+
+<p>3、使用此镜像启动容器，这里需要分别启动主从两个容器</p>
+
+<p>Master(主)：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker run -p 3309:3306 --name primary -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+</code></pre></div></div>
+
+<p>Slave(从)：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker run -p 3308:3306 --name secondary -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+</code></pre></div></div>
+<p>primary对外映射的端口是3309，secondary对外映射的端口是3308。使用docker ps命令查看正在运行的容器：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+c2e509a41b29        mysql:5.7           "docker-entrypoint.s…"   3 weeks ago         Up 2 weeks          33060/tcp, 0.0.0.0:3308-&gt;3306/tcp   secondary
+ec4a868c061d        mysql:5.7           "docker-entrypoint.s…"   3 weeks ago         Up 2 weeks          33060/tcp, 0.0.0.0:3309-&gt;3306/tcp   primary
+</code></pre></div></div>
+
+<h2 id="参考文档">参考文档</h2>
+<ol>
+  <li><a href="https://www.cnblogs.com/linjiaxin/p/12761296.html">基于Docker的Mysql主从复制搭建</a></li>
+</ol>
+:ET

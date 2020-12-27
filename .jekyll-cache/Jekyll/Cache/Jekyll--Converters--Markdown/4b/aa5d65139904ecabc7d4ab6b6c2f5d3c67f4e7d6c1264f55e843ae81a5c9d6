@@ -1,0 +1,76 @@
+I"�<h2 id="一阿里云和docker搭建主从服务器">一、阿里云和Docker搭建主从服务器</h2>
+<p>1、阿里云环境为centos，首先安装docker</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# yum install docker-ce-3:19.03.13-3.el8 -y
+</code></pre></div></div>
+
+<p>2、然后拉取docker镜像，这里使用5.7版本的mysql：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker pull mysql:5.7
+</code></pre></div></div>
+
+<p>3、使用此镜像启动容器，这里需要分别启动主从两个容器</p>
+
+<p>Master(主)：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker run -p 3309:3306 --name primary -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+</code></pre></div></div>
+
+<p>Slave(从)：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker run -p 3308:3306 --name secondary -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
+</code></pre></div></div>
+<p>primary对外映射的端口是3309，secondary对外映射的端口是3308。使用docker ps命令查看正在运行的容器：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+c2e509a41b29        mysql:5.7           "docker-entrypoint.s…"   3 weeks ago         Up 2 weeks          33060/tcp, 0.0.0.0:3308-&gt;3306/tcp   secondary
+ec4a868c061d        mysql:5.7           "docker-entrypoint.s…"   3 weeks ago         Up 2 weeks          33060/tcp, 0.0.0.0:3309-&gt;3306/tcp   primary
+</code></pre></div></div>
+<p>4、容器中Mysql测试：使用主宿主机IP:3309,和主宿主机IP:3308连接Mysql，能够连通则第一步成功。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# mysql -h 主宿主机IP -P 3309 -uroot -p123456 
+</code></pre></div></div>
+
+<blockquote>
+  <p>阿里云需要配置暴露端口规则暴露3308和3309端口</p>
+</blockquote>
+
+<h2 id="二配置主数据库primary">二、配置主数据库(primary)</h2>
+<p>1、进入到primary容器内部，修改mysql的配置文件my.cnf，配置server-id。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker exec -it ec4 /bin/bash
+root@ec4a868c061d:/# apt-get update
+root@ec4a868c061d:/# apt-get install vim
+root@ec4a868c061d:/# cd /etc/mysql
+root@ec4a868c061d:/# vim my.cnf
+</code></pre></div></div>
+<p>my.cnf的内容如下：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[mysqld]
+## 同一局域网内注意要唯一
+server-id=100  
+## 开启二进制日志功能，可以随便取（关键）
+log-bin=mysql-bin
+</code></pre></div></div>
+<p>配置完成之后，需要重启mysql服务使配置生效。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ec4a868c061d:/# service mysql restart
+~# docker start ec4
+</code></pre></div></div>
+
+<p>2、在primary数据库创建数据同步用户，授予用户slave REPLICATION SLAVE权限和REPLICATION CLIENT权限，用于在主从库之间同步数据。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ec4a868c061d:/# mysql -uroot -p123456
+mysql&gt; flush privileges; 
+
+
+CREATE USER 'slave'@'%' IDENTIFIED BY '123456';
+
+GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'slave'@'%';
+</code></pre></div></div>
+<blockquote>
+  <p>(创建用户前先刷新一下权限，不然可能报错。参考：https://blog.csdn.net/u011575570/article/details/51438841)</p>
+</blockquote>
+
+<h2 id="三配置从数据库secondary">三、配置从数据库(secondary)</h2>
+
+<h2 id="四开启主从复制">四、开启主从复制</h2>
+
+<h2 id="五花式掉坑">五、花式掉坑</h2>
+
+<h2 id="参考文档">参考文档</h2>
+<ol>
+  <li><a href="https://www.cnblogs.com/linjiaxin/p/12761296.html">基于Docker的Mysql主从复制搭建</a></li>
+</ol>
+:ET
