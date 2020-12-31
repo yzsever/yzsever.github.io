@@ -1,0 +1,117 @@
+I"M<h4 id="基础入门">基础入门</h4>
+
+<ol>
+  <li>Java编程思想(Thinking in Java)</li>
+  <li>Java核心技术(Core Java)</li>
+  <li>Java8 实战(Java in action)</li>
+  <li>Effective Java中文版</li>
+  <li>代码大全</li>
+</ol>
+
+<h4 id="框架入门与深入">框架入门与深入</h4>
+
+<ol>
+  <li>Spring实战(Spring in action)</li>
+  <li>Hibernate实战（Java Persistence with Hibernate）</li>
+  <li>深入分析Java Web技术内幕</li>
+  <li>互联网轻量级SSM框架解密</li>
+  <li>MyBatis 3源码深度解析</li>
+  <li>Spring技术内幕</li>
+  <li>Spring Boot技术内幕</li>
+  <li>Spring微服务实战</li>
+</ol>
+
+<h4 id="nio与并发编程">NIO与并发编程</h4>
+
+<ol>
+  <li>Java并发编程实战（Java Concurrency in Practice）</li>
+  <li>Java并发编程的艺术</li>
+  <li>Java异步编程实战</li>
+  <li>Netty实战</li>
+  <li>Netty权威指南</li>
+  <li>NIO与Socket编程技术指南</li>
+</ol>
+
+<h4 id="jvm与性能">JVM与性能</h4>
+
+<ol>
+  <li>深入理解Java虚拟机</li>
+  <li>深入理解JVM字节码</li>
+  <li>Java性能优化权威指南</li>
+  <li>Java性能权威指南</li>
+  <li>性能之巅</li>
+  <li>高可用MySQL</li>
+  <li>高性能MySQL</li>
+</ol>
+
+<h4 id="分布式与中间件">分布式与中间件</h4>
+
+<ol>
+  <li>分布式系统：概念与设计</li>
+  <li>分布式消息中间件实践</li>
+  <li>分布式系统应用设计</li>
+  <li>数据密集型应用系统设计</li>
+  <li>分布式服务架构：原理、设计与实战</li>
+  <li>分布式系统架构</li>
+  <li>深入分布式缓存：从原理到实践</li>
+  <li>Kafka权威指南</li>
+  <li>深入理解Kafka：核心设计与实践原理</li>
+  <li>Apache Kafka源码剖析</li>
+  <li>RocketMQ技术内幕：RocketMQ架构设计与实现原理</li>
+  <li>深度剖析Apache Dubbo核心技术内幕</li>
+  <li>Redis实战</li>
+</ol>
+
+<h4 id="架构设计与互联网技术">架构设计与互联网技术</h4>
+
+<ol>
+  <li>系统架构：复杂系统的产品设计与开发</li>
+  <li>软件架构</li>
+  <li>分布式系统架构：技术栈详解与快速进阶</li>
+  <li>亿级流量网站架构核心技术</li>
+  <li>京东基础架构建设之路</li>
+  <li>企业IT架构转型之道 阿里巴巴中台战略思想与架构实战</li>
+  <li>高可用架构</li>
+  <li>高可用可伸缩微服务架构：基于Dubbo、Spring Cloud和Service Mesh</li>
+  <li>架构之美</li>
+  <li>架构简介之道</li>
+  <li>大型网站技术架构演进与性能优化</li>
+  <li>发布！设计与部署稳定的分布式系统</li>
+  <li>微服务架构设计模式</li>
+  <li>微服务设计</li>
+  <li>生产微服务</li>
+  <li>软件系统架构：使用视点和视角与利益相关者合</li>
+  <li>DevOps 软件架构师行动指南</li>
+  <li>DevOps 实践指南</li>
+  <li>企业应用架构模式</li>
+  <li>企业集成模式</li>
+</ol>
+
+<h4 id="其他">其他</h4>
+
+<ol>
+  <li>图解设计模式</li>
+  <li>图解HTTP协议</li>
+  <li>图解性能优化</li>
+  <li>重构：改善既有代码的设计</li>
+  <li>混沌工程，深入理解计算机系统</li>
+  <li>数据库全书</li>
+  <li>虚拟机：系统与进程的通用平台</li>
+  <li>程序员的职业素养</li>
+  <li>数学之美</li>
+  <li>算法之美</li>
+  <li>系统之美</li>
+  <li>计算进化史</li>
+  <li>人月神话</li>
+  <li>编程珠玑</li>
+  <li>高效程序员的45个习惯：敏捷开发修炼之道</li>
+  <li>算法导论</li>
+  <li>计算机程序设计艺术</li>
+  <li>程序员修炼之道</li>
+  <li>有效的单元测试</li>
+</ol>
+
+<h4 id="致谢">致谢</h4>
+<p>感谢KimmKing老师提供的这份书单。</p>
+
+:ET

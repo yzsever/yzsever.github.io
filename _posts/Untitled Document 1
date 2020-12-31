@@ -1,0 +1,36 @@
+2020-12-29T19:10:48.816+08:00 [INFO] behttpconnection.js socket has assigned to HttpRequest http://node10004:8101/topic,/get_my_topics_in_pagination?order_by=4&is_set_top=1&in_type_ids=3,4&with_streams=1&offset=0&with_streams_by_type=1&recent_access_topics_limit=10&with_recent_access_topics=1&order=descend&is_considered_set_top=0&limit=50,GET
+
+2020-12-29T19:11:18.820+08:00 [ERROR] httpstickrouter.js route-error, freq_time: 1609240248814, freq_url: /S_Topic/1.0/get_my_topics_in_pagination?order_by=4&is_set_top=1&in_type_ids=3,4&with_streams=1&offset=0&with_streams_by_type=1&recent_access_topics_limit=10&with_recent_access_topics=1&order=descend&is_considered_set_top=0&limit=50, freq_method: GET, statusCode: 500, errmsg: breq [bres timeout] error Error: socket hang up, freq_headers_ApiCallThreadUID: 7d0df0b1-8048-47e8-8c74-7a46e21b4ef3
+
+"{\"topics\":[{\"topic_id\":164019,\"set_top_time\":1608876230955,\"in_type_id\":4,\"msg_id\":\"16088772212529155\"},{\"msg_id\":\"16088761207429870\",\"set_top_time\":1608876120867,\"topic_id\":164018,\"in_type_id\":4},{\"in_type_id\":4,\"set_top_time\":1608015314815,\"msg_id\":\"16080172559919480\",\"topic_id\":164005},{\"in_type_id\":4,\"set_top_time\":1608000129367,\"msg_id\":\"16082759253019802\",\"topic_id\":163988},{\"msg_id\":\"16092965807759775\",\"set_top_time\":1607935904690,\"topic_id\":163998,\"in_type_id\":4},{\"in_type_id\":4,\"set_top_time\":1607913769072,\"msg_id\":\"16081119930789000\",\"topic_id\":164002},{\"in_type_id\":4,\"set_top_time\":1607913013862,\"msg_id\":\"16079138916749877\",\"topic_id\":164001}],\"top_topic_count\":715}"
+
+
+"[{\"messages\":[{\"topic_id\":163578,\"msg_id\":\"15843555718529802\"},{\"topic_id\":127528,\"msg_id\":\"14851610581549651\"},{\"topic_id\":127529,\"msg_id\":\"14851610524919169\"},{\"topic_id\":122191,\"msg_id\":\"14842992417819201\"},{\"topic_id\":119386,\"msg_id\":\"14804935034829347\"},{\"topic_id\":121214,\"msg_id\":\"14804934354609724\"},{\"topic_id\":121357,\"msg_id\":\"14804934329009176\"},{\"topic_id\":121359,\"msg_id\":\"14804934300309648\"},{\"topic_id\":114200,\"msg_id\":\"14759788450989101\"},{\"topic_id\":111125,\"msg_id\":\"14741919912079159\"}],\"type_id\":2},{\"messages\":[{\"topic_id\":161422,\"msg_id\":\"15813134543109309\"},{\"topic_id\":64395,\"msg_id\":\"14409854181539055\"},{\"topic_id\":61173,\"msg_id\":\"14385642791299563\"},{\"topic_id\":61312,\"msg_id\":\"14384834839409849\"},{\"topic_id\":58988,\"msg_id\":\"14368550530269422\"},{\"topic_id\":56790,\"msg_id\":\"14355544217849700\"},{\"topic_id\":56793,\"msg_id\":\"14353096053169121\"},{\"topic_id\":56802,\"msg_id\":\"14353095445409504\"},{\"topic_id\":51174,\"msg_id\":\"14314436613589520\"},{\"topic_id\":45804,\"msg_id\":\"14294909342989302\"}],\"type_id\":3},{\"messages\":[{\"topic_id\":163573,\"msg_id\":\"15838221242069813\"}],\"type_id\":11},{\"messages\":[{\"topic_id\":130718,\"msg_id\":\"16093073567049444\"}],\"type_id\":5}]"
+
+目前代码内的权限控制：
+
+一、添加区块池权限
+1. 添加权限
+   - (有事件群)类区块归属事件群管理员
+2. 桥接权限
+
+二、更新区块池权限
+1. 更新权限 
+   - 区块池的发起人、复核人、合作方
+   - (有事件群)类区块归属事件群管理员
+2. 桥接权限
+   - 
+
+
+三、添加对象的权限
+1. 
+
+四、更新对象的权限
+1.
+
+
+
+
+
+
+

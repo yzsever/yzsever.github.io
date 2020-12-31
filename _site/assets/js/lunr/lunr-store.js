@@ -22,4 +22,10 @@ var store = [{
         "tags": [],
         "url": "https://yzsever.github.io/mysql/mysqlslowquery/",
         "teaser": null
+      },{
+        "title": "Java工程师推荐书单",
+        "excerpt":"基础入门 Java编程思想(Thinking in Java) Java核心技术(Core Java) Java8 实战(Java in action) Effective Java中文版 代码大全 框架入门与深入 Spring实战(Spring in action) Hibernate实战（Java Persistence with Hibernate） 深入分析Java Web技术内幕 互联网轻量级SSM框架解密 MyBatis 3源码深度解析 Spring技术内幕 Spring Boot技术内幕 Spring微服务实战 NIO与并发编程 Java并发编程实战（Java Concurrency in Practice） Java并发编程的艺术 Java异步编程实战 Netty实战 Netty权威指南 NIO与Socket编程技术指南 JVM与性能 深入理解Java虚拟机 深入理解JVM字节码 Java性能优化权威指南 Java性能权威指南 性能之巅 高可用MySQL 高性能MySQL 分布式与中间件 分布式系统：概念与设计...","categories": ["JAVA"],
+        "tags": [],
+        "url": "https://yzsever.github.io/java/java-read-list/",
+        "teaser": null
       }]

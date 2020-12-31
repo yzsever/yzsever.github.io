@@ -1,4 +1,118 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://yzsever.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yzsever.github.io/" rel="alternate" type="text/html" /><updated>2020-12-29T11:41:39+08:00</updated><id>https://yzsever.github.io/feed.xml</id><title type="html">成长笔记</title><subtitle>一个人最了不起的成就，就是找到自己，然后勇敢做自己。</subtitle><author><name>Jenson</name></author><entry><title type="html">Mysql慢查询优化——IN查询不走索引</title><link href="https://yzsever.github.io/mysql/mysqlslowquery-in/" rel="alternate" type="text/html" title="Mysql慢查询优化——IN查询不走索引" /><published>2020-12-28T10:00:00+08:00</published><updated>2020-12-28T10:00:00+08:00</updated><id>https://yzsever.github.io/mysql/mysqlslowquery-in</id><content type="html" xml:base="https://yzsever.github.io/mysql/mysqlslowquery-in/">&lt;h2 id=&quot;问题背景&quot;&gt;问题背景&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://yzsever.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yzsever.github.io/" rel="alternate" type="text/html" /><updated>2020-12-31T15:10:39+08:00</updated><id>https://yzsever.github.io/feed.xml</id><title type="html">成长笔记</title><subtitle>一个人最了不起的成就，就是找到自己，然后勇敢做自己。</subtitle><author><name>Jenson</name></author><entry><title type="html">Java工程师推荐书单</title><link href="https://yzsever.github.io/java/java-read-list/" rel="alternate" type="text/html" title="Java工程师推荐书单" /><published>2020-12-31T15:10:00+08:00</published><updated>2020-12-31T15:10:00+08:00</updated><id>https://yzsever.github.io/java/java-read-list</id><content type="html" xml:base="https://yzsever.github.io/java/java-read-list/">&lt;h4 id=&quot;基础入门&quot;&gt;基础入门&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Java编程思想(Thinking in Java)&lt;/li&gt;
+  &lt;li&gt;Java核心技术(Core Java)&lt;/li&gt;
+  &lt;li&gt;Java8 实战(Java in action)&lt;/li&gt;
+  &lt;li&gt;Effective Java中文版&lt;/li&gt;
+  &lt;li&gt;代码大全&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;框架入门与深入&quot;&gt;框架入门与深入&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Spring实战(Spring in action)&lt;/li&gt;
+  &lt;li&gt;Hibernate实战（Java Persistence with Hibernate）&lt;/li&gt;
+  &lt;li&gt;深入分析Java Web技术内幕&lt;/li&gt;
+  &lt;li&gt;互联网轻量级SSM框架解密&lt;/li&gt;
+  &lt;li&gt;MyBatis 3源码深度解析&lt;/li&gt;
+  &lt;li&gt;Spring技术内幕&lt;/li&gt;
+  &lt;li&gt;Spring Boot技术内幕&lt;/li&gt;
+  &lt;li&gt;Spring微服务实战&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;nio与并发编程&quot;&gt;NIO与并发编程&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Java并发编程实战（Java Concurrency in Practice）&lt;/li&gt;
+  &lt;li&gt;Java并发编程的艺术&lt;/li&gt;
+  &lt;li&gt;Java异步编程实战&lt;/li&gt;
+  &lt;li&gt;Netty实战&lt;/li&gt;
+  &lt;li&gt;Netty权威指南&lt;/li&gt;
+  &lt;li&gt;NIO与Socket编程技术指南&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;jvm与性能&quot;&gt;JVM与性能&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;深入理解Java虚拟机&lt;/li&gt;
+  &lt;li&gt;深入理解JVM字节码&lt;/li&gt;
+  &lt;li&gt;Java性能优化权威指南&lt;/li&gt;
+  &lt;li&gt;Java性能权威指南&lt;/li&gt;
+  &lt;li&gt;性能之巅&lt;/li&gt;
+  &lt;li&gt;高可用MySQL&lt;/li&gt;
+  &lt;li&gt;高性能MySQL&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;分布式与中间件&quot;&gt;分布式与中间件&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;分布式系统：概念与设计&lt;/li&gt;
+  &lt;li&gt;分布式消息中间件实践&lt;/li&gt;
+  &lt;li&gt;分布式系统应用设计&lt;/li&gt;
+  &lt;li&gt;数据密集型应用系统设计&lt;/li&gt;
+  &lt;li&gt;分布式服务架构：原理、设计与实战&lt;/li&gt;
+  &lt;li&gt;分布式系统架构&lt;/li&gt;
+  &lt;li&gt;深入分布式缓存：从原理到实践&lt;/li&gt;
+  &lt;li&gt;Kafka权威指南&lt;/li&gt;
+  &lt;li&gt;深入理解Kafka：核心设计与实践原理&lt;/li&gt;
+  &lt;li&gt;Apache Kafka源码剖析&lt;/li&gt;
+  &lt;li&gt;RocketMQ技术内幕：RocketMQ架构设计与实现原理&lt;/li&gt;
+  &lt;li&gt;深度剖析Apache Dubbo核心技术内幕&lt;/li&gt;
+  &lt;li&gt;Redis实战&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;架构设计与互联网技术&quot;&gt;架构设计与互联网技术&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;系统架构：复杂系统的产品设计与开发&lt;/li&gt;
+  &lt;li&gt;软件架构&lt;/li&gt;
+  &lt;li&gt;分布式系统架构：技术栈详解与快速进阶&lt;/li&gt;
+  &lt;li&gt;亿级流量网站架构核心技术&lt;/li&gt;
+  &lt;li&gt;京东基础架构建设之路&lt;/li&gt;
+  &lt;li&gt;企业IT架构转型之道 阿里巴巴中台战略思想与架构实战&lt;/li&gt;
+  &lt;li&gt;高可用架构&lt;/li&gt;
+  &lt;li&gt;高可用可伸缩微服务架构：基于Dubbo、Spring Cloud和Service Mesh&lt;/li&gt;
+  &lt;li&gt;架构之美&lt;/li&gt;
+  &lt;li&gt;架构简介之道&lt;/li&gt;
+  &lt;li&gt;大型网站技术架构演进与性能优化&lt;/li&gt;
+  &lt;li&gt;发布！设计与部署稳定的分布式系统&lt;/li&gt;
+  &lt;li&gt;微服务架构设计模式&lt;/li&gt;
+  &lt;li&gt;微服务设计&lt;/li&gt;
+  &lt;li&gt;生产微服务&lt;/li&gt;
+  &lt;li&gt;软件系统架构：使用视点和视角与利益相关者合&lt;/li&gt;
+  &lt;li&gt;DevOps 软件架构师行动指南&lt;/li&gt;
+  &lt;li&gt;DevOps 实践指南&lt;/li&gt;
+  &lt;li&gt;企业应用架构模式&lt;/li&gt;
+  &lt;li&gt;企业集成模式&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;其他&quot;&gt;其他&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;图解设计模式&lt;/li&gt;
+  &lt;li&gt;图解HTTP协议&lt;/li&gt;
+  &lt;li&gt;图解性能优化&lt;/li&gt;
+  &lt;li&gt;重构：改善既有代码的设计&lt;/li&gt;
+  &lt;li&gt;混沌工程，深入理解计算机系统&lt;/li&gt;
+  &lt;li&gt;数据库全书&lt;/li&gt;
+  &lt;li&gt;虚拟机：系统与进程的通用平台&lt;/li&gt;
+  &lt;li&gt;程序员的职业素养&lt;/li&gt;
+  &lt;li&gt;数学之美&lt;/li&gt;
+  &lt;li&gt;算法之美&lt;/li&gt;
+  &lt;li&gt;系统之美&lt;/li&gt;
+  &lt;li&gt;计算进化史&lt;/li&gt;
+  &lt;li&gt;人月神话&lt;/li&gt;
+  &lt;li&gt;编程珠玑&lt;/li&gt;
+  &lt;li&gt;高效程序员的45个习惯：敏捷开发修炼之道&lt;/li&gt;
+  &lt;li&gt;算法导论&lt;/li&gt;
+  &lt;li&gt;计算机程序设计艺术&lt;/li&gt;
+  &lt;li&gt;程序员修炼之道&lt;/li&gt;
+  &lt;li&gt;有效的单元测试&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;致谢&quot;&gt;致谢&lt;/h4&gt;
+&lt;p&gt;感谢KimmKing老师提供的这份书单。&lt;/p&gt;</content><author><name>Jenson</name></author><category term="JAVA" /><summary type="html">基础入门</summary></entry><entry><title type="html">Mysql慢查询优化——IN查询不走索引</title><link href="https://yzsever.github.io/mysql/mysqlslowquery-in/" rel="alternate" type="text/html" title="Mysql慢查询优化——IN查询不走索引" /><published>2020-12-28T10:00:00+08:00</published><updated>2020-12-28T10:00:00+08:00</updated><id>https://yzsever.github.io/mysql/mysqlslowquery-in</id><content type="html" xml:base="https://yzsever.github.io/mysql/mysqlslowquery-in/">&lt;h2 id=&quot;问题背景&quot;&gt;问题背景&lt;/h2&gt;
 
 &lt;p&gt;最近优化慢查询时，发现由于业务的变更，之前不常用的字段作为了查询条件，慢查询日志中的rows达到了18万行，因为没有索引，所以进行了全表扫描。顾采取策略为改查询字段添加索引。添加索引后，使用explain分析语句，显示会使用索引。&lt;/p&gt;
 &lt;blockquote&gt;
