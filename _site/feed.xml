@@ -1,4 +1,159 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://yzsever.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yzsever.github.io/" rel="alternate" type="text/html" /><updated>2020-12-31T15:10:39+08:00</updated><id>https://yzsever.github.io/feed.xml</id><title type="html">成长笔记</title><subtitle>一个人最了不起的成就，就是找到自己，然后勇敢做自己。</subtitle><author><name>Jenson</name></author><entry><title type="html">Java工程师推荐书单</title><link href="https://yzsever.github.io/java/java-read-list/" rel="alternate" type="text/html" title="Java工程师推荐书单" /><published>2020-12-31T15:10:00+08:00</published><updated>2020-12-31T15:10:00+08:00</updated><id>https://yzsever.github.io/java/java-read-list</id><content type="html" xml:base="https://yzsever.github.io/java/java-read-list/">&lt;h4 id=&quot;基础入门&quot;&gt;基础入门&lt;/h4&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://yzsever.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yzsever.github.io/" rel="alternate" type="text/html" /><updated>2021-01-05T15:11:14+08:00</updated><id>https://yzsever.github.io/feed.xml</id><title type="html">成长笔记</title><subtitle>一个人最了不起的成就，就是找到自己，然后勇敢做自己。</subtitle><author><name>Jenson</name></author><entry><title type="html">配置redis的主从复制</title><link href="https://yzsever.github.io/redis/redis-replica/" rel="alternate" type="text/html" title="配置redis的主从复制" /><published>2021-01-05T14:55:00+08:00</published><updated>2021-01-05T14:55:00+08:00</updated><id>https://yzsever.github.io/redis/redis-replica</id><content type="html" xml:base="https://yzsever.github.io/redis/redis-replica/">&lt;blockquote&gt;
+  &lt;p&gt;环境为阿里云 CentOS Linux release 8.3.2011&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;redis的主从复制&quot;&gt;redis的主从复制&lt;/h3&gt;
+&lt;h4 id=&quot;1实现核心步骤&quot;&gt;1、实现核心步骤&lt;/h4&gt;
+&lt;p&gt;redis的主从复制实现非常的简单，极简的风格, 从节点执行:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; SLAVEOF 127.0.0.1 6379
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;也可以在配置文件中设置。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;注意：从节点只读、异步复制。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;2使用docker搭建主从的redis环境&quot;&gt;2、使用docker搭建主从的redis环境&lt;/h4&gt;
+&lt;p&gt;根据上节课老师推荐的redis安装方式：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run -p 6379:6379 --name redis01 -v /etc/redis/redis.conf:/etc/redis/redis.conf -v /etc/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;让我们来解析一下这条命令：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;用法: docker run [OPTIONS] IMAGE [COMMAND] [ARG…]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;docker run : 创建一个容器，然后启动它&lt;/li&gt;
+  &lt;li&gt;-p 6379:6379 : 发布容器的6379端口到宿主机的6379端口(前一个6379)。&lt;/li&gt;
+  &lt;li&gt;–name redis01 : 为容器分配一个名称redis01&lt;/li&gt;
+  &lt;li&gt;-v /etc/redis/redis.conf:/etc/redis/redis.conf : -v和选项–volume相同，绑定挂载卷，将主机的/etc/redis/redis.conf(前一个)安装到容器中的/etc/redis/redis.conf。&lt;/li&gt;
+  &lt;li&gt;-v /etc/redis/data:/data : 将主机的/etc/redis/data安装到容器中的/data&lt;/li&gt;
+  &lt;li&gt;-d 同选项–detach 在后台运行容器并打印容器ID&lt;/li&gt;
+  &lt;li&gt;redis 使用的镜象名称(IMAGE)&lt;/li&gt;
+  &lt;li&gt;redis-server /etc/redis/redis.conf –appendonly yes: 在容器启动后执行的命令:指定配置文件启动redis-server进程，开启数据持久化&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;理解完整条命令以后，我们自然发现几个问题：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;主机中的redis.conf并没有&lt;/li&gt;
+  &lt;li&gt;/etc/redis/data当多个redis需要区分目录&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;3配置redisconf&quot;&gt;3、配置redis.conf&lt;/h4&gt;
+&lt;p&gt;获取redis.conf的方式：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd ~
+$ mkdir redis
+$ cd redis
+$ wget http://download.redis.io/redis-stable/redis.conf
+$ cp redis.conf redis1.conf
+$ cp redis.conf redis2.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;下载好管网提供的配置文件后，复制两份出来作为主从redis的配置文件。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;primary配置&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 注释这一行，表示Redis可以接受任意ip的连接
+# bind 127.0.0.1 
+
+# 当客户端需要从其他host访问的时候，需要关闭保护模式
+protected-mode no 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;replica配置&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 注释这一行，表示Redis可以接受任意ip的连接
+# bind 127.0.0.1 
+
+# 当客户端需要从其他host访问的时候，需要关闭保护模式
+protected-mode no 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这里我们主从redis的配置一致，将使用命令SLAVEOF的方式开启主从复制。&lt;/p&gt;
+
+&lt;h4 id=&quot;4创建主从redis容器实例&quot;&gt;4、创建主从redis容器实例&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;primary容器&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run -p 6380:6379 --name redis1 -v /root/redis/redis1.conf:/etc/redis/redis.conf -v /etc/redis/data1:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;replica容器&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run -p 6381:6379 --name redis2 -v /root/redis/redis2.conf:/etc/redis/redis.conf -v /etc/redis/data2:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;查看一下：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+145b5cf0be0e        redis               &quot;docker-entrypoint.s…&quot;   4 seconds ago       Up 3 seconds        0.0.0.0:6381-&amp;gt;6379/tcp              redis2
+4ff66c1b0f36        redis               &quot;docker-entrypoint.s…&quot;   38 seconds ago      Up 37 seconds       0.0.0.0:6380-&amp;gt;6379/tcp              redis1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;查看主redis的容器IP：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker inspect 4ff | grep IPAddress
+            &quot;SecondaryIPAddresses&quot;: null,
+            &quot;IPAddress&quot;: &quot;172.17.0.5&quot;,
+                    &quot;IPAddress&quot;: &quot;172.17.0.5&quot;,
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;进入从redis开始主从复制功能：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker exec -it 145 /bin/bash
+redis2$ redis-cli
+127.0.0.1:6379&amp;gt; info
+...
+# Replication
+role:master
+connected_slaves:0
+master_replid:32b30f3d7e5e1c8debe150fd7cf5d26d87385ae6
+master_replid2:0000000000000000000000000000000000000000
+...
+127.0.0.1:6379&amp;gt; slaveof 172.17.0.5 6379
+OK
+127.0.0.1:6379&amp;gt; info
+...
+# Replication
+role:slave
+master_host:172.17.0.5
+master_port:6379
+master_link_status:up
+master_last_io_seconds_ago:2
+master_sync_in_progress:0
+slave_repl_offset:28
+slave_priority:100
+slave_read_only:1
+connected_slaves:0
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;5主从复制验证&quot;&gt;5、主从复制验证&lt;/h4&gt;
+&lt;p&gt;进入主redis，设置一些数据：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker exec -it 4ff /bin/bash
+redis1$ redis-cli
+127.0.0.1:6379&amp;gt; set key1 1
+OK
+127.0.0.1:6379&amp;gt; set key2 2
+OK
+127.0.0.1:6379&amp;gt; set key3 3
+OK
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;进入从redis，查看同步数据&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker exec -it 145 /bin/bash
+redis1$ redis-cli
+127.0.0.1:6379&amp;gt; keys *
+1) &quot;key2&quot;
+2) &quot;key3&quot;
+3) &quot;key1&quot;
+127.0.0.1:6379&amp;gt; get key1
+&quot;1&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;conf配置的方式&quot;&gt;conf配置的方式&lt;/h3&gt;
+&lt;p&gt;修改redis2.conf&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#replicaof &amp;lt;masterip&amp;gt; &amp;lt;masterport&amp;gt;
+replicaof 172.17.0.5 6379
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;参考文档&quot;&gt;参考文档&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;https://www.cnblogs.com/fan-gx/p/11463400.html&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/engine/reference/commandline/run/#options&quot;&gt;docker run使用手册&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Jenson</name></author><category term="Redis" /><summary type="html">环境为阿里云 CentOS Linux release 8.3.2011</summary></entry><entry><title type="html">Java工程师推荐书单</title><link href="https://yzsever.github.io/java/java-read-list/" rel="alternate" type="text/html" title="Java工程师推荐书单" /><published>2020-12-31T15:10:00+08:00</published><updated>2020-12-31T15:10:00+08:00</updated><id>https://yzsever.github.io/java/java-read-list</id><content type="html" xml:base="https://yzsever.github.io/java/java-read-list/">&lt;h4 id=&quot;基础入门&quot;&gt;基础入门&lt;/h4&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Java编程思想(Thinking in Java)&lt;/li&gt;
@@ -290,7 +445,7 @@ relay_log=edu-mysql-relay-bin
 &lt;p&gt;File和Position字段的值后面将会用到，在后面的操作完成之前，需要保证Master库不能做任何操作，否则将会引起状态变化，File和Position字段的值变化。&lt;/p&gt;
 
 &lt;p&gt;2、查看主数据库Primary容器的IP地址&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~# docker inspect --format='' ec4
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~# docker inspect --format=&quot;\{\{.NetworkSettings.IPAddress}}&quot; ec4 (使用时删除命令中的反斜杠\)
 172.17.0.2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 

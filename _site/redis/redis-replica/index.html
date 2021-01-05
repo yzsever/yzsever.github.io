@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Java工程师推荐书单 - 成长笔记</title>
-<meta name="description" content="基础入门">
+<!-- begin _includes/seo.html --><title>配置redis的主从复制 - 成长笔记</title>
+<meta name="description" content="环境为阿里云 CentOS Linux release 8.3.2011">
 
 
   <meta name="author" content="Jenson">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:site_name" content="成长笔记">
-<meta property="og:title" content="Java工程师推荐书单">
-<meta property="og:url" content="https://yzsever.github.io/java/java-read-list/">
+<meta property="og:title" content="配置redis的主从复制">
+<meta property="og:url" content="https://yzsever.github.io/redis/redis-replica/">
 
 
-  <meta property="og:description" content="基础入门">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2020-12-31T15:10:00+08:00">
+  <meta property="og:description" content="环境为阿里云 CentOS Linux release 8.3.2011">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2021-01-05T14:55:00+08:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://yzsever.github.io/java/java-read-list/">
+
+<link rel="canonical" href="https://yzsever.github.io/redis/redis-replica/">
 
 
 
@@ -281,15 +281,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Java工程师推荐书单">
-    <meta itemprop="description" content="基础入门">
-    <meta itemprop="datePublished" content="2020-12-31T15:10:00+08:00">
+    <meta itemprop="headline" content="配置redis的主从复制">
+    <meta itemprop="description" content="  环境为阿里云 CentOS Linux release 8.3.2011">
+    <meta itemprop="datePublished" content="2021-01-05T14:55:00+08:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Java工程师推荐书单
+          <h1 id="page-title" class="page__title" itemprop="headline">配置redis的主从复制
 </h1>
           
 
@@ -305,7 +305,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          少于 1 分钟阅读
+          1 分钟阅读
         
       </span>
     
@@ -321,134 +321,178 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 目录</h4></header>
               <ul class="toc__menu">
-  <li><a href="#基础入门">基础入门</a></li>
-  <li><a href="#框架入门与深入">框架入门与深入</a></li>
-  <li><a href="#nio与并发编程">NIO与并发编程</a></li>
-  <li><a href="#jvm与性能">JVM与性能</a></li>
-  <li><a href="#分布式与中间件">分布式与中间件</a></li>
-  <li><a href="#架构设计与互联网技术">架构设计与互联网技术</a></li>
-  <li><a href="#其他">其他</a></li>
-  <li><a href="#致谢">致谢</a></li>
+  <li><a href="#redis的主从复制">redis的主从复制</a>
+    <ul>
+      <li><a href="#1实现核心步骤">1、实现核心步骤</a></li>
+      <li><a href="#2使用docker搭建主从的redis环境">2、使用docker搭建主从的redis环境</a></li>
+      <li><a href="#3配置redisconf">3、配置redis.conf</a></li>
+      <li><a href="#4创建主从redis容器实例">4、创建主从redis容器实例</a></li>
+      <li><a href="#5主从复制验证">5、主从复制验证</a></li>
+    </ul>
+  </li>
+  <li><a href="#conf配置的方式">conf配置的方式</a></li>
+  <li><a href="#参考文档">参考文档</a></li>
 </ul>
 
             </nav>
           </aside>
         
-        <h4 id="基础入门">基础入门</h4>
+        <blockquote>
+  <p>环境为阿里云 CentOS Linux release 8.3.2011</p>
+</blockquote>
+
+<h3 id="redis的主从复制">redis的主从复制</h3>
+<h4 id="1实现核心步骤">1、实现核心步骤</h4>
+<p>redis的主从复制实现非常的简单，极简的风格, 从节点执行:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; SLAVEOF 127.0.0.1 6379
+</code></pre></div></div>
+<p>也可以在配置文件中设置。</p>
+<blockquote>
+  <p>注意：从节点只读、异步复制。</p>
+</blockquote>
+
+<h4 id="2使用docker搭建主从的redis环境">2、使用docker搭建主从的redis环境</h4>
+<p>根据上节课老师推荐的redis安装方式：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -p 6379:6379 --name redis01 -v /etc/redis/redis.conf:/etc/redis/redis.conf -v /etc/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+</code></pre></div></div>
+<p>让我们来解析一下这条命令：</p>
+<blockquote>
+  <p>用法: docker run [OPTIONS] IMAGE [COMMAND] [ARG…]</p>
+</blockquote>
 
 <ol>
-  <li>Java编程思想(Thinking in Java)</li>
-  <li>Java核心技术(Core Java)</li>
-  <li>Java8 实战(Java in action)</li>
-  <li>Effective Java中文版</li>
-  <li>代码大全</li>
+  <li>docker run : 创建一个容器，然后启动它</li>
+  <li>-p 6379:6379 : 发布容器的6379端口到宿主机的6379端口(前一个6379)。</li>
+  <li>–name redis01 : 为容器分配一个名称redis01</li>
+  <li>-v /etc/redis/redis.conf:/etc/redis/redis.conf : -v和选项–volume相同，绑定挂载卷，将主机的/etc/redis/redis.conf(前一个)安装到容器中的/etc/redis/redis.conf。</li>
+  <li>-v /etc/redis/data:/data : 将主机的/etc/redis/data安装到容器中的/data</li>
+  <li>-d 同选项–detach 在后台运行容器并打印容器ID</li>
+  <li>redis 使用的镜象名称(IMAGE)</li>
+  <li>redis-server /etc/redis/redis.conf –appendonly yes: 在容器启动后执行的命令:指定配置文件启动redis-server进程，开启数据持久化</li>
 </ol>
 
-<h4 id="框架入门与深入">框架入门与深入</h4>
-
+<p>理解完整条命令以后，我们自然发现几个问题：</p>
 <ol>
-  <li>Spring实战(Spring in action)</li>
-  <li>Hibernate实战（Java Persistence with Hibernate）</li>
-  <li>深入分析Java Web技术内幕</li>
-  <li>互联网轻量级SSM框架解密</li>
-  <li>MyBatis 3源码深度解析</li>
-  <li>Spring技术内幕</li>
-  <li>Spring Boot技术内幕</li>
-  <li>Spring微服务实战</li>
+  <li>主机中的redis.conf并没有</li>
+  <li>/etc/redis/data当多个redis需要区分目录</li>
 </ol>
 
-<h4 id="nio与并发编程">NIO与并发编程</h4>
+<h4 id="3配置redisconf">3、配置redis.conf</h4>
+<p>获取redis.conf的方式：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~
+$ mkdir redis
+$ cd redis
+$ wget http://download.redis.io/redis-stable/redis.conf
+$ cp redis.conf redis1.conf
+$ cp redis.conf redis2.conf
+</code></pre></div></div>
 
+<p>下载好管网提供的配置文件后，复制两份出来作为主从redis的配置文件。</p>
+
+<p><strong>primary配置</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 注释这一行，表示Redis可以接受任意ip的连接
+# bind 127.0.0.1 
+
+# 当客户端需要从其他host访问的时候，需要关闭保护模式
+protected-mode no 
+</code></pre></div></div>
+
+<p><strong>replica配置</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 注释这一行，表示Redis可以接受任意ip的连接
+# bind 127.0.0.1 
+
+# 当客户端需要从其他host访问的时候，需要关闭保护模式
+protected-mode no 
+</code></pre></div></div>
+
+<p>这里我们主从redis的配置一致，将使用命令SLAVEOF的方式开启主从复制。</p>
+
+<h4 id="4创建主从redis容器实例">4、创建主从redis容器实例</h4>
+<p><strong>primary容器</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -p 6380:6379 --name redis1 -v /root/redis/redis1.conf:/etc/redis/redis.conf -v /etc/redis/data1:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+</code></pre></div></div>
+
+<p><strong>replica容器</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -p 6381:6379 --name redis2 -v /root/redis/redis2.conf:/etc/redis/redis.conf -v /etc/redis/data2:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+</code></pre></div></div>
+
+<p>查看一下：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+145b5cf0be0e        redis               "docker-entrypoint.s…"   4 seconds ago       Up 3 seconds        0.0.0.0:6381-&gt;6379/tcp              redis2
+4ff66c1b0f36        redis               "docker-entrypoint.s…"   38 seconds ago      Up 37 seconds       0.0.0.0:6380-&gt;6379/tcp              redis1
+</code></pre></div></div>
+
+<p>查看主redis的容器IP：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker inspect 4ff | grep IPAddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.5",
+                    "IPAddress": "172.17.0.5",
+</code></pre></div></div>
+
+<p>进入从redis开始主从复制功能：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -it 145 /bin/bash
+redis2$ redis-cli
+127.0.0.1:6379&gt; info
+...
+# Replication
+role:master
+connected_slaves:0
+master_replid:32b30f3d7e5e1c8debe150fd7cf5d26d87385ae6
+master_replid2:0000000000000000000000000000000000000000
+...
+127.0.0.1:6379&gt; slaveof 172.17.0.5 6379
+OK
+127.0.0.1:6379&gt; info
+...
+# Replication
+role:slave
+master_host:172.17.0.5
+master_port:6379
+master_link_status:up
+master_last_io_seconds_ago:2
+master_sync_in_progress:0
+slave_repl_offset:28
+slave_priority:100
+slave_read_only:1
+connected_slaves:0
+...
+</code></pre></div></div>
+
+<h4 id="5主从复制验证">5、主从复制验证</h4>
+<p>进入主redis，设置一些数据：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -it 4ff /bin/bash
+redis1$ redis-cli
+127.0.0.1:6379&gt; set key1 1
+OK
+127.0.0.1:6379&gt; set key2 2
+OK
+127.0.0.1:6379&gt; set key3 3
+OK
+</code></pre></div></div>
+
+<p>进入从redis，查看同步数据</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -it 145 /bin/bash
+redis1$ redis-cli
+127.0.0.1:6379&gt; keys *
+1) "key2"
+2) "key3"
+3) "key1"
+127.0.0.1:6379&gt; get key1
+"1"
+</code></pre></div></div>
+
+<h3 id="conf配置的方式">conf配置的方式</h3>
+<p>修改redis2.conf</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#replicaof &lt;masterip&gt; &lt;masterport&gt;
+replicaof 172.17.0.5 6379
+</code></pre></div></div>
+
+<h3 id="参考文档">参考文档</h3>
 <ol>
-  <li>Java并发编程实战（Java Concurrency in Practice）</li>
-  <li>Java并发编程的艺术</li>
-  <li>Java异步编程实战</li>
-  <li>Netty实战</li>
-  <li>Netty权威指南</li>
-  <li>NIO与Socket编程技术指南</li>
+  <li>https://www.cnblogs.com/fan-gx/p/11463400.html</li>
+  <li><a href="https://docs.docker.com/engine/reference/commandline/run/#options">docker run使用手册</a></li>
 </ol>
-
-<h4 id="jvm与性能">JVM与性能</h4>
-
-<ol>
-  <li>深入理解Java虚拟机</li>
-  <li>深入理解JVM字节码</li>
-  <li>Java性能优化权威指南</li>
-  <li>Java性能权威指南</li>
-  <li>性能之巅</li>
-  <li>高可用MySQL</li>
-  <li>高性能MySQL</li>
-</ol>
-
-<h4 id="分布式与中间件">分布式与中间件</h4>
-
-<ol>
-  <li>分布式系统：概念与设计</li>
-  <li>分布式消息中间件实践</li>
-  <li>分布式系统应用设计</li>
-  <li>数据密集型应用系统设计</li>
-  <li>分布式服务架构：原理、设计与实战</li>
-  <li>分布式系统架构</li>
-  <li>深入分布式缓存：从原理到实践</li>
-  <li>Kafka权威指南</li>
-  <li>深入理解Kafka：核心设计与实践原理</li>
-  <li>Apache Kafka源码剖析</li>
-  <li>RocketMQ技术内幕：RocketMQ架构设计与实现原理</li>
-  <li>深度剖析Apache Dubbo核心技术内幕</li>
-  <li>Redis实战</li>
-</ol>
-
-<h4 id="架构设计与互联网技术">架构设计与互联网技术</h4>
-
-<ol>
-  <li>系统架构：复杂系统的产品设计与开发</li>
-  <li>软件架构</li>
-  <li>分布式系统架构：技术栈详解与快速进阶</li>
-  <li>亿级流量网站架构核心技术</li>
-  <li>京东基础架构建设之路</li>
-  <li>企业IT架构转型之道 阿里巴巴中台战略思想与架构实战</li>
-  <li>高可用架构</li>
-  <li>高可用可伸缩微服务架构：基于Dubbo、Spring Cloud和Service Mesh</li>
-  <li>架构之美</li>
-  <li>架构简介之道</li>
-  <li>大型网站技术架构演进与性能优化</li>
-  <li>发布！设计与部署稳定的分布式系统</li>
-  <li>微服务架构设计模式</li>
-  <li>微服务设计</li>
-  <li>生产微服务</li>
-  <li>软件系统架构：使用视点和视角与利益相关者合</li>
-  <li>DevOps 软件架构师行动指南</li>
-  <li>DevOps 实践指南</li>
-  <li>企业应用架构模式</li>
-  <li>企业集成模式</li>
-</ol>
-
-<h4 id="其他">其他</h4>
-
-<ol>
-  <li>图解设计模式</li>
-  <li>图解HTTP协议</li>
-  <li>图解性能优化</li>
-  <li>重构：改善既有代码的设计</li>
-  <li>混沌工程，深入理解计算机系统</li>
-  <li>数据库全书</li>
-  <li>虚拟机：系统与进程的通用平台</li>
-  <li>程序员的职业素养</li>
-  <li>数学之美</li>
-  <li>算法之美</li>
-  <li>系统之美</li>
-  <li>计算进化史</li>
-  <li>人月神话</li>
-  <li>编程珠玑</li>
-  <li>高效程序员的45个习惯：敏捷开发修炼之道</li>
-  <li>算法导论</li>
-  <li>计算机程序设计艺术</li>
-  <li>程序员修炼之道</li>
-  <li>有效的单元测试</li>
-</ol>
-
-<h4 id="致谢">致谢</h4>
-<p>感谢KimmKing老师提供的这份书单。</p>
 
 
         
@@ -472,14 +516,14 @@
     
       
       
-      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">JAVA</a>
+      <a href="/categories/#redis" class="page__taxonomy-item" rel="tag">Redis</a>
     
     </span>
   </p>
 
 
         
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2020-12-31T15:10:00+08:00">December 31, 2020</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2021-01-05T14:55:00+08:00">January 5, 2021</time></p>
 
 
       </footer>
@@ -489,23 +533,22 @@
     <h4 class="page__share-title">分享</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Java%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95%20https%3A%2F%2Fyzsever.github.io%2Fjava%2Fjava-read-list%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%E9%85%8D%E7%BD%AEredis%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%20https%3A%2F%2Fyzsever.github.io%2Fredis%2Fredis-replica%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fyzsever.github.io%2Fjava%2Fjava-read-list%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fyzsever.github.io%2Fredis%2Fredis-replica%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fyzsever.github.io%2Fjava%2Fjava-read-list%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fyzsever.github.io%2Fredis%2Fredis-replica%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/mysql/mysqlslowquery/" class="pagination--pager" title="Mysql慢查询优化总览
+      <a href="/java/java-read-list/" class="pagination--pager" title="Java工程师推荐书单
 ">上一页</a>
     
     
-      <a href="/redis/redis-replica/" class="pagination--pager" title="配置redis的主从复制
-">下一页</a>
+      <a href="#" class="pagination--pager disabled">下一页</a>
     
   </nav>
 
@@ -529,7 +572,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/redis/redis-replica/" rel="permalink">配置redis的主从复制
+        <a href="/java/java-read-list/" rel="permalink">Java工程师推荐书单
 </a>
       
     </h2>
@@ -547,16 +590,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 分钟阅读
+          少于 1 分钟阅读
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">
-  环境为阿里云 CentOS Linux release 8.3.2011
-
+    <p class="archive__item-excerpt" itemprop="description">基础入门
 </p>
   </article>
 </div>

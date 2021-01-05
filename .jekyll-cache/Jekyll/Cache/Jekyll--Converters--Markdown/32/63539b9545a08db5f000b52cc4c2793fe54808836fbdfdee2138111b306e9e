@@ -1,0 +1,18 @@
+I"%<ul class="toc__menu">
+  <li><a href="#配置redis的主从复制">配置redis的主从复制</a>
+    <ul>
+      <li><a href="#redis的主从复制">redis的主从复制</a>
+        <ul>
+          <li><a href="#1实现核心步骤">1、实现核心步骤</a></li>
+          <li><a href="#2使用docker搭建主从的redis环境">2、使用docker搭建主从的redis环境</a></li>
+          <li><a href="#3配置redisconf">3、配置redis.conf</a></li>
+          <li><a href="#4创建主从redis容器实例">4、创建主从redis容器实例</a></li>
+          <li><a href="#5主从复制验证">5、主从复制验证</a></li>
+        </ul>
+      </li>
+      <li><a href="#conf配置的方式">conf配置的方式</a></li>
+      <li><a href="#参考文档">参考文档</a></li>
+    </ul>
+  </li>
+</ul>
+:ET

@@ -28,4 +28,10 @@ var store = [{
         "tags": [],
         "url": "https://yzsever.github.io/java/java-read-list/",
         "teaser": null
+      },{
+        "title": "配置redis的主从复制",
+        "excerpt":"环境为阿里云 CentOS Linux release 8.3.2011 redis的主从复制 1、实现核心步骤 redis的主从复制实现非常的简单，极简的风格, 从节点执行: &gt; SLAVEOF 127.0.0.1 6379 也可以在配置文件中设置。 注意：从节点只读、异步复制。 2、使用docker搭建主从的redis环境 根据上节课老师推荐的redis安装方式： $ docker run -p 6379:6379 --name redis01 -v /etc/redis/redis.conf:/etc/redis/redis.conf -v /etc/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes 让我们来解析一下这条命令： 用法: docker run [OPTIONS] IMAGE [COMMAND] [ARG…] docker run : 创建一个容器，然后启动它 -p 6379:6379 : 发布容器的6379端口到宿主机的6379端口(前一个6379)。...","categories": ["Redis"],
+        "tags": [],
+        "url": "https://yzsever.github.io/redis/redis-replica/",
+        "teaser": null
       }]

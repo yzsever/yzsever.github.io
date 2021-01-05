@@ -106,7 +106,7 @@ File和Position字段的值后面将会用到，在后面的操作完成之前�
 
 2、查看主数据库Primary容器的IP地址
 ```
-~# docker inspect --format='{{.NetworkSettings.IPAddress}}' ec4
+~# docker inspect --format="\{\{.NetworkSettings.IPAddress}}" ec4 (使用时删除命令中的反斜杠\)
 172.17.0.2
 ```
 

@@ -421,7 +421,7 @@ relay_log=edu-mysql-relay-bin
 <p>File和Position字段的值后面将会用到，在后面的操作完成之前，需要保证Master库不能做任何操作，否则将会引起状态变化，File和Position字段的值变化。</p>
 
 <p>2、查看主数据库Primary容器的IP地址</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker inspect --format='' ec4
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~# docker inspect --format="\{\{.NetworkSettings.IPAddress}}" ec4 (使用时删除命令中的反斜杠\)
 172.17.0.2
 </code></pre></div></div>
 
@@ -587,6 +587,48 @@ Slave_SQL_Running: Yes
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
+        <a href="/redis/redis-replica/" rel="permalink">配置redis的主从复制
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 分钟阅读
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  环境为阿里云 CentOS Linux release 8.3.2011
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
         <a href="/java/java-read-list/" rel="permalink">Java工程师推荐书单
 </a>
       
@@ -697,46 +739,6 @@ Slave_SQL_Running: Yes
 </div>
 
         
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E5%85%B6%E4%BB%96/helloworld/" rel="permalink">Hello World!
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          少于 1 分钟阅读
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">很开心能够搭建自己的博客，记录生活学习中值得记录的东西。
-</p>
-  </article>
-</div>
-
-        
       </div>
     </div>
   
@@ -789,7 +791,7 @@ Slave_SQL_Running: Yes
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2020 Jenson. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2021 Jenson. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>

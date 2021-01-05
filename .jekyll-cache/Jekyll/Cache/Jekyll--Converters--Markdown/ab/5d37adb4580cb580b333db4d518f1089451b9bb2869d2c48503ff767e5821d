@@ -1,0 +1,158 @@
+I"n<blockquote>
+  <p>环境为阿里云 CentOS Linux release 8.3.2011</p>
+</blockquote>
+
+<h3 id="redis的主从复制">redis的主从复制</h3>
+<h4 id="1实现核心步骤">1、实现核心步骤</h4>
+<p>redis的主从复制实现非常的简单，极简的风格, 从节点执行:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; SLAVEOF 127.0.0.1 6379
+</code></pre></div></div>
+<p>也可以在配置文件中设置。</p>
+<blockquote>
+  <p>注意：从节点只读、异步复制。</p>
+</blockquote>
+
+<h4 id="2使用docker搭建主从的redis环境">2、使用docker搭建主从的redis环境</h4>
+<p>根据上节课老师推荐的redis安装方式：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -p 6379:6379 --name redis01 -v /etc/redis/redis.conf:/etc/redis/redis.conf -v /etc/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+</code></pre></div></div>
+<p>让我们来解析一下这条命令：</p>
+<blockquote>
+  <p>用法: docker run [OPTIONS] IMAGE [COMMAND] [ARG…]</p>
+</blockquote>
+
+<ol>
+  <li>docker run : 创建一个容器，然后启动它</li>
+  <li>-p 6379:6379 : 发布容器的6379端口到宿主机的6379端口(前一个6379)。</li>
+  <li>–name redis01 : 为容器分配一个名称redis01</li>
+  <li>-v /etc/redis/redis.conf:/etc/redis/redis.conf : -v和选项–volume相同，绑定挂载卷，将主机的/etc/redis/redis.conf(前一个)安装到容器中的/etc/redis/redis.conf。</li>
+  <li>-v /etc/redis/data:/data : 将主机的/etc/redis/data安装到容器中的/data</li>
+  <li>-d 同选项–detach 在后台运行容器并打印容器ID</li>
+  <li>redis 使用的镜象名称(IMAGE)</li>
+  <li>redis-server /etc/redis/redis.conf –appendonly yes: 在容器启动后执行的命令:指定配置文件启动redis-server进程，开启数据持久化</li>
+</ol>
+
+<p>理解完整条命令以后，我们自然发现几个问题：</p>
+<ol>
+  <li>主机中的redis.conf并没有</li>
+  <li>/etc/redis/data当多个redis需要区分目录</li>
+</ol>
+
+<h4 id="3配置redisconf">3、配置redis.conf</h4>
+<p>获取redis.conf的方式：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~
+$ mkdir redis
+$ cd redis
+$ wget http://download.redis.io/redis-stable/redis.conf
+$ cp redis.conf redis1.conf
+$ cp redis.conf redis2.conf
+</code></pre></div></div>
+
+<p>下载好管网提供的配置文件后，复制两份出来作为主从redis的配置文件。</p>
+
+<p><strong>primary配置</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 注释这一行，表示Redis可以接受任意ip的连接
+# bind 127.0.0.1 
+
+# 当客户端需要从其他host访问的时候，需要关闭保护模式
+protected-mode no 
+</code></pre></div></div>
+
+<p><strong>replica配置</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 注释这一行，表示Redis可以接受任意ip的连接
+# bind 127.0.0.1 
+
+# 当客户端需要从其他host访问的时候，需要关闭保护模式
+protected-mode no 
+</code></pre></div></div>
+
+<p>这里我们主从redis的配置一致，将使用命令SLAVEOF的方式开启主从复制。</p>
+
+<h4 id="4创建主从redis容器实例">4、创建主从redis容器实例</h4>
+<p><strong>primary容器</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -p 6380:6379 --name redis1 -v /root/redis/redis1.conf:/etc/redis/redis.conf -v /etc/redis/data1:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+</code></pre></div></div>
+
+<p><strong>replica容器</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -p 6381:6379 --name redis2 -v /root/redis/redis2.conf:/etc/redis/redis.conf -v /etc/redis/data2:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+</code></pre></div></div>
+
+<p>查看一下：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+145b5cf0be0e        redis               "docker-entrypoint.s…"   4 seconds ago       Up 3 seconds        0.0.0.0:6381-&gt;6379/tcp              redis2
+4ff66c1b0f36        redis               "docker-entrypoint.s…"   38 seconds ago      Up 37 seconds       0.0.0.0:6380-&gt;6379/tcp              redis1
+</code></pre></div></div>
+
+<p>查看主redis的容器IP：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker inspect 4ff | grep IPAddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.5",
+                    "IPAddress": "172.17.0.5",
+</code></pre></div></div>
+
+<p>进入从redis开始主从复制功能：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -it 145 /bin/bash
+redis2$ redis-cli
+127.0.0.1:6379&gt; info
+...
+# Replication
+role:master
+connected_slaves:0
+master_replid:32b30f3d7e5e1c8debe150fd7cf5d26d87385ae6
+master_replid2:0000000000000000000000000000000000000000
+...
+127.0.0.1:6379&gt; slaveof 172.17.0.5 6379
+OK
+127.0.0.1:6379&gt; info
+...
+# Replication
+role:slave
+master_host:172.17.0.5
+master_port:6379
+master_link_status:up
+master_last_io_seconds_ago:2
+master_sync_in_progress:0
+slave_repl_offset:28
+slave_priority:100
+slave_read_only:1
+connected_slaves:0
+...
+</code></pre></div></div>
+
+<h4 id="5主从复制验证">5、主从复制验证</h4>
+<p>进入主redis，设置一些数据：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -it 4ff /bin/bash
+redis1$ redis-cli
+127.0.0.1:6379&gt; set key1 1
+OK
+127.0.0.1:6379&gt; set key2 2
+OK
+127.0.0.1:6379&gt; set key3 3
+OK
+</code></pre></div></div>
+
+<p>进入从redis，查看同步数据</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -it 145 /bin/bash
+redis1$ redis-cli
+127.0.0.1:6379&gt; keys *
+1) "key2"
+2) "key3"
+3) "key1"
+127.0.0.1:6379&gt; get key1
+"1"
+</code></pre></div></div>
+
+<h3 id="conf配置的方式">conf配置的方式</h3>
+<p>修改redis2.conf</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#replicaof &lt;masterip&gt; &lt;masterport&gt;
+replicaof 172.17.0.5 6379
+</code></pre></div></div>
+
+<h3 id="参考文档">参考文档</h3>
+<ol>
+  <li>https://www.cnblogs.com/fan-gx/p/11463400.html</li>
+  <li><a href="https://docs.docker.com/engine/reference/commandline/run/#options">docker run使用手册</a></li>
+</ol>
+
+:ET
